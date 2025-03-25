@@ -1,0 +1,7 @@
+# Gitignore file for Linux Notes project
+
+# Ignore application packages
+*.appx
+
+# Ignore specific application files
+app*
