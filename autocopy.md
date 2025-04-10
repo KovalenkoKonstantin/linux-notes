@@ -19,9 +19,9 @@ sudo nano /usr/local/bin/copy_nginx_logs.sh
 
 ```bash
 #!/bin/bash
-cp /var/log/nginx/access.log /var/www/settings/access.log
-chown www-data:www-data /var/www/settings/access.log
-chmod 644 /var/www/settings/access.log
+cp /var/log/nginx/access.log /var/www/logs/access.log
+chown www-data:www-data /var/www/logs/access.log
+chmod 644 /var/www/logs/access.log
 ```
 
 > Это просто копирует лог, выставляет нужные права, чтобы Nginx и браузер могли читать.
@@ -35,9 +35,7 @@ chmod 644 /var/www/settings/access.log
 ```bash
 sudo chmod +x /usr/local/bin/copy_nginx_logs.sh
 ```
-
 ---
-
 ## ⏰ Шаг 2: Добавляем в `cron`
 
 Откроем `crontab` от `root`, чтобы был доступ ко всем файлам:
@@ -52,7 +50,6 @@ sudo crontab -e
 * * * * * /usr/local/bin/copy_nginx_logs.sh
 ```
 означает: **каждую минуту в 0 секунд** выполняется скрипт.
-Сохрани и выйди.
 
 ---
 
@@ -61,13 +58,13 @@ sudo crontab -e
 Подожди 1-2 минуты, потом выполни:
 
 ```bash
-ls -l /var/www/settings/access.log
+ls -l /var/www/logs/access.log
 ```
 
 и
 
 ```bash
-tail /var/www/settings/access.log
+tail /var/www/logs/access.log
 ```
 
 Ты должен увидеть свежие записи. Если лог пустой — возможно, сайт никто не посещал.
