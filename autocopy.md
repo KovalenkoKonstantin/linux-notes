@@ -3,7 +3,10 @@
 ---
 
 ## 📌 Цель:
-Копировать актуальный `/var/log/nginx/access.log` → в `/var/www/settings/access.log`, например **каждую минуту**.
+Копировать актуальный `/var/log/nginx/access.log` → в `/var/www/logs/access.log`
+b
+`/var/log/nginx/error.log` → в `/var/www/logs/access.log`
+, **каждую минуту**.
 
 ---
 
@@ -18,10 +21,12 @@ sudo nano /usr/local/bin/copy_nginx_logs.sh
 2. Вставь в файл вот это:
 
 ```bash
-#!/bin/bash
 cp /var/log/nginx/access.log /var/www/logs/access.log
 chown www-data:www-data /var/www/logs/access.log
 chmod 644 /var/www/logs/access.log
+cp /var/log/nginx/error.log /var/www/logs/error.log
+chown www-data:www-data /var/www/logs/error.log
+chmod 644 /var/www/logs/error.log
 ```
 
 > Это просто копирует лог, выставляет нужные права, чтобы Nginx и браузер могли читать.
