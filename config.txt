@@ -1,0 +1,11 @@
+
+export http_proxy="http://Kovalenko.Kon:hz,ndjlju@10.0.4.245:3128"
+export https_proxy="http://Kovalenko.Kon:hz,ndjlju@10.0.4.245:3128"
+export ftp_proxy="http://Kovalenko.Kon:hz,ndjlju@10.0.4.245:3128"
+export no_proxy="localhost,127.0.0.1,::1"
+
+
+http_proxy="http://Kovalenko.Kon:hz,ndjlju@10.0.4.245:3128"
+https_proxy="http://Kovalenko.Kon:hz,ndjlju@10.0.4.245:3128"
+ftp_proxy="http://Kovalenko.Kon:hz,ndjlju@10.0.4.245:3128"
+no_proxy="localhost,127.0.0.1,.example.com"

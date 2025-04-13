@@ -6,3 +6,4 @@
 # Ignore specific application files
 app*
 config.json
+offspin.md
