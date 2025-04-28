@@ -36,6 +36,7 @@ https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh
 ```
 ssh rootubn@10.121.1.164
 ssh rootubn@10.121.1.24
+ssh user@10.121.1.141
 ```
 
 👉 Здесь:
