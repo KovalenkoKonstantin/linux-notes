@@ -54,7 +54,7 @@ pip install flask
 Ты можешь проверить, что Flask установлен, запустив команду:
 
 ```bash
-pip list
+pip list | sort
 ```
 Ты увидишь, что в списке установленных пакетов есть Flask.
 
@@ -78,28 +78,47 @@ Werkzeug     3.1.3
 /www    
     /.vscode
         settings.json
-    /html
-        /shared
-            Представительские.xlsb  <--- Файл доступный для скачивания всем
     /local.work                 <--- Основная директория сайта
-        /admin                  <--- Админский блок
-            dashboard.html
-            login.html
+        /__pycache__            <--- Какой-то кеш
+        /cache                  <--- Кэширование
+            redis_cache.py      <--- кэширования Redis пока не настроен
         /core
-            auth.py             <--- Авторизация, роли
-            db.py               <--- Работа с employee.json и registry.json
+            /__pycache__        <--- Какой-то кеш
+            data.py             <--- Пути к файлам
+            db.py               <--- Функции работы с SQLite
+            predefined_users.py <--- Пользователи по умолчанию
             utils.py            <--- Общие функции (форматирование дат и чисел)
         /data
             employee.json       <--- Файл м данными по сотрудникам
+            local.db            <--- База данныз SQLite
             registry.json       <--- Файл с реестром записей           
         /images
             background.png          <--- Картинки фона
             background2.png         <--- Картинки фона
         /routes                 <--- Маршруты Flask
+            /__pycache__        <--- Какой-то кеш
+            admin.py            <--- Всё, что касается @admin.route
+            api.py              <--- @api.route /check_employee
+            auth.py             <--- Авторизация, проерка пользователя в БД, logout
+            input.py            <--- Всё про форму ввода данных
             main.py             <--- Главная страница, input, preview, registry
-            api.py              <--- API (approve, reject, delete, check_employee, etc.)
-            auth_routes.py      <--- login, logout
-            admin.py            <--- Всё, что касается /admin
+            preview_all.py      <--- Маршруты общего просмотра
+            registration.py     <--- Процесс регистрации пользователей
+            registry.py         <--- Работа с реестром записей
+            auth_routes.py      <--- login, 
+        /scripts                <--- вспомогательные скрипты
+            /__pycache__        <--- Какой-то кеш
+            add_total_expenses_per_person_to_db.py
+            db_registry_to_json.py
+            employee_json_to_db.py
+            mssql_db_employee_to_json.py
+            registry_json_to_db.py
+            sync_json_to_db.py
+        /settings
+            nginx.conf      <--- Жёсткая ссылка на /etc/nginx/nginx.conf
+            local.work      <--- Источник ссылка на /etc/nginx/sites-available/local.work
+        /shared
+            Представительские.xlsb  <--- Файл доступный для скачивания всем
         /static
             /css
                 act.css
@@ -108,40 +127,53 @@ Werkzeug     3.1.3
                 input.css
                 preview_all.css
                 print_form.css
+                registration.css
                 registry.css
                 report.css
                 start_page.css
             /ico
                 ico.ico
             /js
-                auth.js
                 dashboard.js
-                index.js
                 input.js
+                login.js
                 print_form.js
-                registry.js
-
-        /templates
+                registration.js
+                registry.js                
+        /tasks                  <-- таски celery пока не настроен
+            /__pycache__        <--- Какой-то кеш
+            celery_tasks.py     <-- не настроен
+        /tasks                          <-- Celery задачи
+            celery_tasks.py             <-- Фоновые задачи
+        /templates                      <-- шаблоны страниц
             act.html
+            dashboard.html
             index.html
             input.html
+            login.html
             preview_all.html
+            preview_record.html
             print_form.html
+            registration.html
             registry.html
             report.html
+        /test                               <-- тестовые функции не подключены к проекту
+            extensions.py
+            decode_input_data.py
+            extensions.py
+        .dockerigmore
+        .env
         app.py                              <--- Точка входа, где только импорт и запуск
-        fetch_data.py                       <--- Обновление данных
+        congig.py                           <-- Конфигурация приложения
+        docker-compose.yml
+        Dockerfile
+        requiments.txt
     /logs
         access.log
         error.log        
-    /settings
-        default         <--- Жёсткие ссылки на конфиги nginx
-        local.work      <--- Жёсткие ссылки на конфиги nginx
-        nginx.conf      <--- Жёсткие ссылки на конфиги nginx
     /shared             <--- Общая директория между VM и хостом
         template.xlsb
-    /venv
-    
+    /venv    
 ```
 
 # 3: Создайте файл Flask-приложения (app.py)
@@ -3289,6 +3321,28 @@ sudo netstat -tuln | grep :80
 ```bash
 sudo systemctl restart nginx
 ```
+Системный статус через systemd
+```bash
+systemctl status nginx
+```
+
+**Узнать, кто использует порт**
+
+```bash
+sudo lsof -i :80
+```
+**lsof** = **LiSt Open Files**
+
+**Остановить локальный nginx на хосте**
+
+```bash
+sudo systemctl stop nginx
+```
+
+
+
+
+---
 
 # Разворачиваем Flask-сервер на хостовой машине (Windows), в папке `D:\Git\flask_server`.
 
