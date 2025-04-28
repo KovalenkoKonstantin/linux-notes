@@ -6,5 +6,8 @@
 # Ignore specific application files
 app*
 config.json
+config.txt
 offspin.md
 flask.md
+SQLite.md
+.env
