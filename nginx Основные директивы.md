@@ -47,8 +47,8 @@
 
 | №      | Директива    | Контекст                     | Описание и пример                                                                              |
 | ------ | ------------ | ---------------------------- | ---------------------------------------------------------------------------------------------- |
-| 2️⃣1️⃣ | `access_log` | `http`, `server`, `location` | Путь и формат лога доступа. <br>💡 `access_log /var/log/nginx/access.log;`                     |
-| 2️⃣2️⃣ | `error_log`  | `main`, `http`, `server`     | Путь и уровень логов ошибок. <br>💡 `error_log /var/log/nginx/error.log warn;`                 |
+| 2️⃣1️⃣ | `access_log` | `http`, `server`, `location` | Путь и формат лога доступа. <br>💡 `access_log off` `/var/log/nginx/access.log;`                     |
+| 2️⃣2️⃣ | `error_log`  | `main`, `http`, `server`     | Путь и уровень логов ошибок. <br>💡 `error_log off` `/var/log/nginx/error.log warn;`                 |
 | 2️⃣3️⃣ | `log_format` | `http`                       | Формат записи логов. <br>💡 `log_format main '$remote_addr - $remote_user [$time_local] ...';` |
 
 ---
@@ -86,3 +86,65 @@ server {
     }
 }
 ```
+
+
+таблица с **топ-50 директивами NGINX**, с пояснениями и примерами
+
+---
+
+### 📘 **Таблица: Топ-50 директив NGINX**
+
+| №  | Директива              | Контекст               | Описание и пример                                               |
+| -- | ---------------------- | ---------------------- | --------------------------------------------------------------- |
+| 1  | `worker_processes`     | main                   | Кол-во рабочих процессов. `worker_processes auto;`              |
+| 2  | `worker_connections`   | events                 | Макс. соединений на воркер. `worker_connections 1024;`          |
+| 3  | `events {}`            | main                   | Блок для директив событий (например, `worker_connections`)      |
+| 4  | `http {}`              | main                   | Основной блок для HTTP-настроек                                 |
+| 5  | `server {}`            | http                   | Виртуальный хост (сайт)                                         |
+| 6  | `listen`               | server                 | Порт/IP: `listen 80;`, `listen 443 ssl;`                        |
+| 7  | `server_name`          | server                 | Домен сайта: `server_name example.com;`                         |
+| 8  | `location {}`          | server, location       | Обработка путей: `location /api {}`                             |
+| 9  | `root`                 | http, server, location | Путь к файлам: `root /var/www/html;`                            |
+| 10 | `index`                | http, server, location | Главный файл: `index index.html;`                               |
+| 11 | `proxy_pass`           | location, if           | Проксирование: `proxy_pass http://localhost:5000;`              |
+| 12 | `proxy_set_header`     | location               | Заголовки: `proxy_set_header Host $host;`                       |
+| 13 | `error_page`           | http, server, location | Своя страница ошибок: `error_page 404 /404.html;`               |
+| 14 | `access_log`           | http, server, location | Путь к access-логу                                              |
+| 15 | `error_log`            | main, http, server     | Путь к error-логу                                               |
+| 16 | `include`              | любой                  | Подключение других конфигов                                     |
+| 17 | `gzip`                 | http, server, location | Сжатие: `gzip on;`                                              |
+| 18 | `gzip_types`           | http, server, location | MIME-типы для сжатия: `gzip_types text/html;`                   |
+| 19 | `client_max_body_size` | http, server, location | Макс. размер запроса: `client_max_body_size 10M;`               |
+| 20 | `rewrite`              | server, location, if   | Перезапись URL: `rewrite ^/old /new permanent;`                 |
+| 21 | `return`               | server, location, if   | Возврат ответа: `return 301 https://$host$request_uri;`         |
+| 22 | `try_files`            | location               | Проверка файлов: `try_files $uri $uri/ /index.html;`            |
+| 23 | `expires`              | http, server, location | Кеширование: `expires 7d;`                                      |
+| 24 | `add_header`           | http, server, location | Добавление заголовков: `add_header X-Frame-Options SAMEORIGIN;` |
+| 25 | `ssl_certificate`      | http, server           | Путь к cert-файлу                                               |
+| 26 | `ssl_certificate_key`  | http, server           | Путь к приватному ключу                                         |
+| 27 | `ssl_protocols`        | http, server           | TLS-версии: `ssl_protocols TLSv1.2 TLSv1.3;`                    |
+| 28 | `ssl_ciphers`          | http, server           | Шифры: `ssl_ciphers HIGH:!aNULL:!MD5;`                          |
+| 29 | `log_format`           | http                   | Свой формат логов                                               |
+| 30 | `limit_conn`           | http, server, location | Ограничение соединений: `limit_conn addr 1;`                    |
+| 31 | `limit_req`            | http, server, location | Ограничение запросов                                            |
+| 32 | `proxy_redirect`       | http, server, location | Управление Location-заголовками                                 |
+| 33 | `proxy_cache`          | location               | Включение кэша                                                  |
+| 34 | `proxy_cache_path`     | http                   | Настройка хранения кэша                                         |
+| 35 | `resolver`             | http, server           | Указание DNS: `resolver 8.8.8.8;`                               |
+| 36 | `keepalive_timeout`    | http, server, location | Таймаут соединения                                              |
+| 37 | `default_type`         | http, server, location | MIME по умолчанию                                               |
+| 38 | `client_body_timeout`  | http, server, location | Таймаут тела запроса                                            |
+| 39 | `sendfile`             | http, server, location | Быстрая отдача файлов: `sendfile on;`                           |
+| 40 | `tcp_nopush`           | http, server, location | Передача больших файлов                                         |
+| 41 | `tcp_nodelay`          | http, server, location | Без задержек на маленькие пакеты                                |
+| 42 | `alias`                | location               | Заменяет путь: `alias /srv/files/;`                             |
+| 43 | `open_file_cache`      | http, server           | Кэширование мета-инфо о файлах                                  |
+| 44 | `auth_basic`           | http, server, location | Включение HTTP Basic auth                                       |
+| 45 | `auth_basic_user_file` | http, server, location | Указание .htpasswd                                              |
+| 46 | `rewrite_log`          | http, server, location | Лог rewrite-операций                                            |
+| 47 | `map`                  | http                   | Условные переменные                                             |
+| 48 | `geo`                  | http                   | Переменные по IP-адресу                                         |
+| 49 | `stub_status`          | location               | Мониторинг статуса NGINX                                        |
+| 50 | `daemon`               | main                   | Запуск в фоне: `daemon off;` для Docker                         |
+
+
