@@ -1,102 +1,47 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.pkl
-*.log
+# Gitignore file for Linux Notes project
 
-# Byte-compiled / optimized / DLL files
-*.so
-*.egg-info/
-*.egg
-*.manifest
-*.spec
+# Ignore application packages
+*.appx
 
-# Virtual environment
-venv/
+# Ignore specific application files
+app*
+config.json
+config.txt
+offspin.md
+flask.md
+SQLite.md
+.env
+
+# Ignore virtual environments
 .venv/
+venv/
 env/
-.env/
 ENV/
 
-# Flask instance folder & config
-instance/
-*.sqlite3
-*.db
-*.json
-*.cfg
-*.ini
 
-# Environment variables
-.env
-.env.*
+# Ignore compiled Python files
+*.pyc
+*.pyo
+__pycache__/
 
-# Pytest
-.cache/
-.pytest_cache/
-
-# Gunicorn logs or pid
-gunicorn.log
-gunicorn.pid
-
-# Docker
-*.pid
-docker-compose.override.yml
-docker-compose.debug.yml
-.dockerignore
-Dockerfile.*
-docker.env
-
-# Docker volumes (if bind-mounted)
-volumes/
-data/
-
-# Nginx
-*.crt
-*.key
-nginx.conf
-nginx_temp/
-nginx_logs/
-
-# IDEs and editors
-.vscode/
-.idea/
-*.swp
-*.swo
-*.bak
-*.tmp
-
-# System files
-.DS_Store
-Thumbs.db
-ehthumbs.db
-desktop.ini
-
-# Archives and large files
-*.tar
-*.gz
-*.zip
-*.rar
-*.7z
-*.deb
-*.iso
-*.img
-
-# Build output
-build/
+# Ignore distribution/packaging files
+*.egg
+*.egg-info/
 dist/
+build/
 
-# Logs
+# Ignore test artifacts
 *.log
-logs/
-*.out
+*.tox
+*.coverage
+*.hypothesis/
 
-# node (если вдруг фронт рядом)
-node_modules/
-npm-debug.log
 
-# Misc
-*.bak
-*.orig
-*.tmp
+# Ignore IDE and editor configurations
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore other spec files
+*.spec
