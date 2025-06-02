@@ -11,3 +11,37 @@ offspin.md
 flask.md
 SQLite.md
 .env
+
+# Ignore virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+
+# Ignore compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignore distribution/packaging files
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Ignore test artifacts
+*.log
+*.tox
+*.coverage
+*.hypothesis/
+
+
+# Ignore IDE and editor configurations
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore other spec files
+*.spec
