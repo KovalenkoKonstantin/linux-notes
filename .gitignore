@@ -45,3 +45,4 @@ build/
 
 # Ignore other spec files
 *.spec
+.txt
