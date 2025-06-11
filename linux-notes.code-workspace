@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../SafePoweroff"
+		},
+		{
+			"path": "../check_remote"
+		}
+	],
+	"settings": {
+		"powershell.cwd": "check_remote"
+	}
+}
