@@ -82,6 +82,13 @@ Werkzeug     3.1.3
         /__pycache__            <--- Какой-то кеш
         /cache                  <--- Кэширование
             redis_cache.py      <--- кэширования Redis пока не настроен
+        /bin                    <--- мусор
+            app_copy.py         <--- созданная когда-то резервная копия приложения
+            decode_input_data.py
+            extensions.py       <--- Инициализация RedisCache пока не подключено
+        /cache
+            copy_registry.json
+            redis_cache.py      <--- не подключено
         /core
             /__pycache__        <--- Какой-то кеш
             data.py             <--- Пути к файлам
@@ -105,7 +112,6 @@ Werkzeug     3.1.3
             preview_all.py      <--- Маршруты общего просмотра
             registration.py     <--- Процесс регистрации пользователей
             registry.py         <--- Работа с реестром записей
-            auth_routes.py      <--- login, 
         /scripts                <--- вспомогательные скрипты
             /__pycache__        <--- Какой-то кеш
             add_total_expenses_per_person_to_db.py
@@ -115,8 +121,11 @@ Werkzeug     3.1.3
             registry_json_to_db.py
             sync_json_to_db.py
         /settings
-            nginx.conf      <--- Жёсткая ссылка на /etc/nginx/nginx.conf
-            local.work      <--- Источник ссылка на /etc/nginx/sites-available/local.work
+            code.backup.service     <--- Ссылка на сервис автобэкапа кода
+            gunicorn.service        <--- Ссылка на настрйоки сервиса гуникорна
+            local.work              <--- Жёсткая ссылка на /etc/nginx/sites-available/local.work
+            local.work.conf         <--- Жёсткая ссылка на /var/www/local.work/settings/local.work
+            nginx.conf              <--- Жёсткая ссылка на /etc/nginx/nginx.conf
         /shared
             Представительские.xlsb  <--- Файл доступный для скачивания всем
         /static
@@ -136,7 +145,6 @@ Werkzeug     3.1.3
             /js
                 dashboard.js
                 input.js
-                login.js
                 print_form.js
                 registration.js
                 registry.js                
@@ -157,22 +165,36 @@ Werkzeug     3.1.3
             registration.html
             registry.html
             report.html
-        /test                               <-- тестовые функции не подключены к проекту
-            extensions.py
-            decode_input_data.py
-            extensions.py
+        /test                               <-- тестовые функции
+            /unit
+                /core
+                    test_.py
+                /utils
+                    test_.py
+            /integration
+                /routes
+                    test_auth.py
+                /scripts
+                    test_.py
+            /functional
         .dockerigmore
         .env
+        .gitignore
+        .gitlab-ci.yml
         app.py                              <--- Точка входа, где только импорт и запуск
-        congig.py                           <-- Конфигурация приложения
+        congig.py                           <--- Конфигурация приложения
+        daily_git_commit.py                 <--- Функция автосохранения проекта
         docker-compose.yml
         Dockerfile
-        requiments.txt
+        Makefile
+        requiments.txt                      <--- Не все указанные используются
     /logs
-        access.log
-        error.log        
-    /shared             <--- Общая директория между VM и хостом
-        template.xlsb
+        access.log                          <--- s ссылка на /var/log/nginx/access.log
+        error.log                           <--- s ссылка на /var/log/nginx/error.log
+        flask.log                           <--- s ссылка на /var/log/local.work/flask.log
+        gunicorn.access.log                 <--- логи гуникорна
+        gunicorn.error.log                  <--- логи гуникорна 
+    /shared             <--- Общая директория между VM и хостом. Отключена
     /venv    
 ```
 
