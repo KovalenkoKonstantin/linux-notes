@@ -99,6 +99,11 @@ Werkzeug     3.1.3
             employee.json       <--- Файл м данными по сотрудникам
             local.db            <--- База данныз SQLite
             registry.json       <--- Файл с реестром записей           
+        /email_service
+            .env
+            email_service_test.py
+            events.py
+            mailer.py
         /images
             background.png          <--- Картинки фона
             background2.png         <--- Картинки фона
@@ -107,11 +112,14 @@ Werkzeug     3.1.3
             admin.py            <--- Всё, что касается @admin.route
             api.py              <--- @api.route /check_employee
             auth.py             <--- Авторизация, проерка пользователя в БД, logout
+            employee_changes.py <--- Маршрут Fast API
             input.py            <--- Всё про форму ввода данных
             main.py             <--- Главная страница, input, preview, registry
             preview_all.py      <--- Маршруты общего просмотра
             registration.py     <--- Процесс регистрации пользователей
             registry.py         <--- Работа с реестром записей
+            vhi.py              <--- Маршрут Fast API
+            worktime.py         <--- Маршрут Fast API
         /scripts                <--- вспомогательные скрипты
             /__pycache__        <--- Какой-то кеш
             add_total_expenses_per_person_to_db.py
@@ -166,27 +174,49 @@ Werkzeug     3.1.3
             registry.html
             report.html
         /test                               <-- тестовые функции
-            /unit
-                /core
-                    test_.py
-                /utils
-                    test_.py
+            /functional
             /integration
                 /routes
+                    test_admin.py
+                    test_api.py
                     test_auth.py
+                    test_input.py
+                    test_mailer_mocked.py
+                    test_mailer_real_send.py
+                    test_main.py
+                    test_predefined_users.py
+                    test_registration.py
                 /scripts
-                    test_.py
-            /functional
-        .dockerigmore
+            /unit
+                /core
+                    test_add_total_expenses_per_person_to_db.py
+                    test_db_registry_to_json.py
+                    test_db.py
+                    test_employee_json_to_db.py
+                    test_events.py
+                    test_mailer.py
+                    test_mssql_db_employee_to_json.py
+                    test_registry_json_to_db.py
+                    test_sync_employee.py
+                /utils
+                    test_utils.py
+            conftest.py
+        .coverage
+        .goveragerc
+        .dockerignore
         .env
         .gitignore
         .gitlab-ci.yml
         app.py                              <--- Точка входа, где только импорт и запуск
         congig.py                           <--- Конфигурация приложения
+        CONTRIBUTING.md
+        coverage.xml
         daily_git_commit.py                 <--- Функция автосохранения проекта
         docker-compose.yml
         Dockerfile
+        LICENSE.txt
         Makefile
+        README.md
         requiments.txt                      <--- Не все указанные используются
     /logs
         access.log                          <--- s ссылка на /var/log/nginx/access.log
