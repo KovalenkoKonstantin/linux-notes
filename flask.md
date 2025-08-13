@@ -100,15 +100,66 @@ Werkzeug     3.1.3
             local.db            <--- База данныз SQLite
             registry.json       <--- Файл с реестром записей           
         /email_service
-            .env
-            email_service_test.py
-            events.py
-            mailer.py
+            /tests
+                __init__.py
+                test_events.py
+                test_mailer.py
+            /venv               <--- виртуальное окружение
+            __init__.py
+            .env                <--- переменные окружения
+            celery_app.py       <--- celery_app + конфиг
+            docker-compose.yml
+            Dockerfile
+            events.py           <--- Логика уведомлений (реальные функции)
+            mailer.py           <--- Функция send_email
+            Makefile
+            pyproject.toml
+            requirements.txt
+            setup.py
+            tasks.py            <--- задачи Celery. Обёртки задач над events
+        /fapi_service
+            /routes
+            /static
+            /templates
+            /venv
+            __init__.py
+            .gitignore
+            fastapi_app.py
+            requirements.txt
+            setup.py
+            test_notify.py
         /images
             background.png          <--- Картинки фона
             background2.png         <--- Картинки фона
+        /project_service
+            /project_lifecycle
+                /migrations
+                /templates
+                    dashboard.html
+                    project_form.html
+                __init__.py             <--- пустой
+                admin.py
+                apps.py
+                asgi.py
+                models.py               <--- Модели Project и Stages
+                settings.py             <-- Главный файл настроек
+                urls.py
+                views.py
+                wsgi.py
+            /static
+                autosize_textarea.js
+                dashboard.css
+                dashboard.js
+            /staticfiles
+            db.sqlite3
+            Makefile
+            manage.py                   <--- Точка входа
+            poetry.lock
+            pyproject.toml
         /routes                 <--- Маршруты Flask
             /__pycache__        <--- Какой-то кеш
+            /utils
+                celery_client.py<--- Вызовы Celery-задач
             admin.py            <--- Всё, что касается @admin.route
             api.py              <--- @api.route /check_employee
             auth.py             <--- Авторизация, проерка пользователя в БД, logout
