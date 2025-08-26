@@ -100,23 +100,22 @@ Werkzeug     3.1.3
             local.db            <--- База данныз SQLite
             registry.json       <--- Файл с реестром записей           
         /email_service
-            /tests
+            /email_service
                 __init__.py
-                test_events.py
-                test_mailer.py
-            /venv               <--- виртуальное окружение
-            __init__.py
+                celery_app.py       <--- celery_app + конфиг
+                events.py           <--- Логика уведомлений (реальные функции)
+                mailer.py           <--- Функция send_email
+                tasks.py            <--- задачи Celery. Обёртки задач над events
+                /tests
+                    __init__.py
+                    test_events.py
+                    test_mailer.py
             .env                <--- переменные окружения
-            celery_app.py       <--- celery_app + конфиг
             docker-compose.yml
             Dockerfile
-            events.py           <--- Логика уведомлений (реальные функции)
-            mailer.py           <--- Функция send_email
             Makefile
             pyproject.toml
             requirements.txt
-            setup.py
-            tasks.py            <--- задачи Celery. Обёртки задач над events
         /fapi_service
             /routes
             /static
@@ -132,7 +131,17 @@ Werkzeug     3.1.3
             background.png          <--- Картинки фона
             background2.png         <--- Картинки фона
         /project_service
+            /manual_tests                      <--- ручные тесты. не замоканные
+                test_celery_config.py           <--- проверка конфигурации Celery + отправка письма
+                test_dump_env.py                <--- дамп переменных пярмо в консоль
+                test_email_worker.py            <--- реальная отправка письма
+                test_service.py                 <--- статус systemd сервиса
+                test_tasks.py                   <--- проверка вызова задач
+            /media
             /project_lifecycle
+                /management
+                    /commands                   <--- Django найдёт команду только если она лежит в management/commands/
+                        ensure_celerybeat.py    <--- Команда, которая создаёт/обновляет расписание в django-celery-beat
                 /migrations
                 /templates
                     dashboard.html
@@ -141,21 +150,26 @@ Werkzeug     3.1.3
                 admin.py
                 apps.py
                 asgi.py
+                celery_app.py           <--- ищет этапы с наступившим transition_to_fixed_at
                 models.py               <--- Модели Project и Stages
-                settings.py             <-- Главный файл настроек
+                settings.py             <--- Главный файл настроек
+                tasks.py                <--- планировщик, который находит актуальные этапы и вызывает по имени таск из email_service
                 urls.py
-                views.py
+                views.py                <--- главная логика
                 wsgi.py
             /static
                 autosize_textarea.js
                 dashboard.css
                 dashboard.js
             /staticfiles
+            .env
+            .gitingore
             db.sqlite3
             Makefile
             manage.py                   <--- Точка входа
             poetry.lock
             pyproject.toml
+            README.md
         /routes                 <--- Маршруты Flask
             /__pycache__        <--- Какой-то кеш
             /utils
@@ -179,6 +193,10 @@ Werkzeug     3.1.3
             mssql_db_employee_to_json.py
             registry_json_to_db.py
             sync_json_to_db.py
+        /services                   <--- софт линки сами сервисы в /etc/systemd/system/
+            email-worker.service    <--- рассылает письма
+            project-beat.service    <--- ставит периодику (09:00)
+            project-worker.service  <--- выполняет «тик»-таску (читает БД Django)
         /settings
             code.backup.service     <--- Ссылка на сервис автобэкапа кода
             gunicorn.service        <--- Ссылка на настрйоки сервиса гуникорна
